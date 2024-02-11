@@ -82,6 +82,7 @@
   color: darkred;
   border: solid 1px darkred;
   padding: 20px;
+  text-decoration: none;
 }
 
 /* チャットメイン */
