@@ -1,35 +1,24 @@
 <!-- ヘッダー -->
 <div class="chat_header">
-  <div class="chat_name">test chat</div>
-  <div class="chat_close"><a hrer="#">チャットを終了する</a></div>
+  <div class="chat_name">
+    <%= @room.name %>
+  </div>
+  <div class="chat_close">
+    <%= link_to "チャットを終了する", room_path(@room), data: {turbo_method: :delete } %>
+  </div>
 </div>
 <!-- チャット -->
 <div class="messages">
-  <div class="message">
-   <div class="message_top">
-     <div class="message_name">mizha</div>
-      <div class="message_date">2024/02/07 09:14:53</div>
-    </div>
-    <div class="message_content">一人ですけど、おはようございます。</div>
-  </div>
-  <div class="message">
-   <div class="message_top">
-     <div class="message_name">mizha</div>
-      <div class="message_date">2024/02/07 09:15:05</div>
-    </div>
-    <div class="message_content">おはようございます！！！</div>
-  </div>
+  <%= render partial: 'message', collection: @messages %>
 </div>
 <!-- フォーム -->
-<div class="form">
+<%= form_with model: [@room, @message], class: 'form', local: true do |f| %>
   <div class="form_input">
-    <input class="form-message" placeholder="type a message" tyoe="text" name="message">
+    <%= f.text_field :content, class: 'form-message', placeholder: 'type a message' %>
     <label class="form-image">
       <span class="image-file">画像</span>
-      <input type="file" class="hidden">
+      <%= f.file_field :image, class: 'hidden' %>
     </label>
   </div>
-  <div class="form_btn">
-    <input class="form-submit" type="submit" value="送信">
-  </div>
-</div>
+  <%= f.submit '送信', class: 'form-submit' %>
+<% end %>
